@@ -1,0 +1,27 @@
+{
+  "extends": "@tsconfig/svelte/tsconfig.json",
+
+  "include": ["src/**/*"],
+  "exclude": ["node_modules/*", "__sapper__/*", "public/*"],
+
+  "compilerOptions": {
+    // "outDir": "dist",
+    // "module": "node16",
+    // "moduleResolution": "node16",
+    // "moduleDetection": "force",
+    // "allowSyntheticDefaultImports": true,
+    // "resolveJsonModule": false,
+    // "declaration": true,
+    // "pretty": true,
+    // "newLine": "lf",
+    // "removeComments": true,
+    // "noEmitOnError": true,
+    // "useDefineForClassFields": true,
+    // "noImplicitThis": true,
+    // "noImplicitAny": true,
+    // "strictNullChecks": true,
+    // "exactOptionalPropertyTypes": false,
+    // "verbatimModuleSyntax": true,
+    "ignoreDeprecations": "5.0" // TODO: when node18-strictest-esm is updated for typescript 5 remove this
+  },  
+}
