@@ -1,27 +1,18 @@
 {
-  "extends": "@tsconfig/svelte/tsconfig.json",
-
-  "include": ["src/**/*"],
-  "exclude": ["node_modules/*", "__sapper__/*", "public/*"],
-
-  "compilerOptions": {
-    // "outDir": "dist",
-    // "module": "node16",
-    // "moduleResolution": "node16",
-    // "moduleDetection": "force",
-    // "allowSyntheticDefaultImports": true,
-    // "resolveJsonModule": false,
-    // "declaration": true,
-    // "pretty": true,
-    // "newLine": "lf",
-    // "removeComments": true,
-    // "noEmitOnError": true,
-    // "useDefineForClassFields": true,
-    // "noImplicitThis": true,
-    // "noImplicitAny": true,
-    // "strictNullChecks": true,
-    // "exactOptionalPropertyTypes": false,
-    // "verbatimModuleSyntax": true,
-    "ignoreDeprecations": "5.0" // TODO: when node18-strictest-esm is updated for typescript 5 remove this
-  },  
+	"extends": "./.svelte-kit/tsconfig.json",
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+    "verbatimModuleSyntax": true
+	}
+	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
+	//
+	// If you want to overwrite includes/excludes, make sure to copy over the relevant includes/excludes
+	// from the referenced tsconfig.json - TypeScript does not merge them in
 }
