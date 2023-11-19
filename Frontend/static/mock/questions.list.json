@@ -44,7 +44,8 @@
       "What are their values?",
       "What could I offer them?",
       "What could they offer me?",
-      "What questions do you have for them?",
+      "What questions do I have for them? (What do I want to know)",
+      "What questions will they likely want to ask me? (What do they want to know about me)",
       "Anticipate relevant follow up questions, and bring them up yourself when applicable(in case the interviewer \"misses the mark\")",
       "Write notes - find star model stories to relevant topics/questions"
     ]
@@ -104,6 +105,7 @@
       ],
       
       "behavioural": [
+        "What is a good boss?",
         "How would somebody close to you describe you?",
         "What makes you get up out of bed in the morning?",
         "Give me an example of a difficult problem you solved. How did you solve this problem?",
@@ -166,6 +168,7 @@
     "https://www.ted.com/talks/amy_cuddy_your_body_language_may_shape_who_you_are/comments",
     "https://www.youtube.com/watch?v=y66YKWz_sf0",
     "https://www.youtube.com/watch?v=5v-wyR5emRw",
-    "https://www.youtube.com/watch?v=zZCk2z9ymmY"
+    "https://www.youtube.com/watch?v=zZCk2z9ymmY",
+    "https://www.randstad.ca/job-seeker/career-resources/resume-tips/what-do-recruiters-really-look-for-in-a-cover-letter/#:~:text=Recruiters%20want%20a%20document%20that's,organization%20uses%20to%20describe%20itself."
   ]
 }
