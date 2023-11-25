@@ -1,4 +1,15 @@
 <script lang="ts">
+  import type { IDataContainerQuestions } from '../../../../Backend/data/src/dataInTS'
+
+  export let data
+  const questions: IDataContainerQuestions = { 
+    technical: [],
+    behavioural: [],
+    personal: [],
+    uncategorized: [],
+    ...data.resp
+  }
+
   let stream: MediaStream, videoRef: HTMLVideoElement;
 
   $: showSuggestedAnswer = false

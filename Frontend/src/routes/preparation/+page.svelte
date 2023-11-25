@@ -2,8 +2,6 @@
   export let data
   const prepData = data.resp.preparing
 
-  
-
   console.log({prepData})
 </script>
 
