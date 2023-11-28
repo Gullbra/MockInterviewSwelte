@@ -1,0 +1,38 @@
+schema {
+    query: Query
+}
+
+type TPitfall {
+    pitfall: String
+    handling: [String]
+}
+
+type TPrepAndResearch{
+    Appearance: [String]
+    onlineInterview: [String]
+    research: [String]
+}
+
+type TQObject {
+    question: String
+    suggestedAnswers: [String]
+}
+type TQtoAnswer {
+    technical: [TQObject]
+    behavioural: [TQObject]
+    personal: [TQObject]
+    uncategorized: [TQObject]
+}
+
+type TAllData {
+    commonPitfalls: [TPitfall],
+    generalThoughtsAndTips: [String],
+    prepAndResearch: TPrepAndResearch,
+    questionsToAnswer: TQtoAnswer,
+    questionsToAsk: [String],
+    someLinks: [String],
+}
+
+type Query {
+    getData: TAllData
+}
