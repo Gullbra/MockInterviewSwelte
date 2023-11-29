@@ -26,6 +26,7 @@ def hello():
     return "Hey"
 
 
+# https://www.apollographql.com/blog/graphql/python/complete-api-guide/
 # https://studio.apollographql.com/sandbox/explorer
 @app.get('/api/graphql/v1/')
 def graphql_playground():
@@ -35,12 +36,14 @@ def graphql_playground():
 @app.post('/api/graphql/v1/')
 def graphql_server():
     data = request.get_json()
+    print("get_json_data:", data)
     success, result = graphql_sync(
         refined_schema,
         data,
         context_value=request,
         debug=app.debug
     )
+    print("after gql_sync", result)
     status_code = 200 if success else 400
     return jsonify(result), status_code
 
@@ -56,4 +59,5 @@ def get_api_data(file_name):
         return 'No data found'
 
 
-app.run()
+if __name__ == '__main__':
+    app.run()

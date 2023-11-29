@@ -1,20 +1,31 @@
 import json
+import os
 
 
 def get_data_resolver(obj, info):
     print("Resolver running!")
 
+    print("what about this?")
     try:
-        with open('../json/data.combinedData.json') as all_data_file:
+        print("Before file opening")
+        with open('../data/json/data.combinedData.json') as all_data_file:
             all_data_dict = json.loads(all_data_file.read())
-        print(all_data_dict)
+        print("All data", all_data_dict)
+
         payload = {
             "success": True,
-            "getData": all_data_dict
+            "data": all_data_dict
         }
+        # payload = all_data_file
+        return payload
     except Exception as error:
         payload = {
             "success": False,
             "errors": [str(error)]
         }
-    return payload
+        print("error!{}".format(str(error)))
+        print(os.getcwd())
+        # payload = {}
+        return payload
+
+    # return payload
