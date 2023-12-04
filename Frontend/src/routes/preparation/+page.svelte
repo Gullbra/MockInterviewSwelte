@@ -1,6 +1,6 @@
 <script lang="ts">
   export let data
-  const prepData = data.resp.preparing
+  const prepData = data.resp
 
   console.log({prepData})
 </script>
