@@ -2,6 +2,7 @@
   import '../styles/base.css'
   import '../styles/colors.css'
   import '../styles/fonts.css'
+  import '../styles/modular-classes.css'
 
   import DropdownMenu from './components/DropdownMenu.svelte'
 
@@ -12,6 +13,7 @@
         { title: "Mock an Interview", path: "/mockAnInterview" },
         { title: "Preparation", path: "/preparation" },
         { title: "Webcam test", path: "/web-cam-test" },
+        { title: "two way binding test", path: "/two-way-binding" },
         { title: "About", path: "/about" },
       ]
     },
@@ -33,6 +35,7 @@
         { path: "https://learn.svelte.dev/tutorial/component-events", title: "Svelte components events" },
         { path: "https://learn.svelte.dev/tutorial/text-inputs", title: "Svelte inputs" },
         { path: "https://learn.svelte.dev/tutorial/onmount", title: "Svelte onMount" },
+        { path: "https://svelte.dev/repl/5352578a0fc646929ca45a2f7f3365eb?version=3.29.4", title: "two-ways-bindings" },
       ]
     },
     { 

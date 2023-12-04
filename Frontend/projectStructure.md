@@ -10,7 +10,8 @@ Site Structure
   |	  |__ questions to ask
   |	  |
   |	  |__ general thoughts and tips
-  |
+  |   |
+  |   |__ save and download notes as txt file
   |
   |__ during Interview
       |
