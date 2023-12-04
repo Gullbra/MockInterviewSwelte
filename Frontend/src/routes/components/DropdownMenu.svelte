@@ -7,7 +7,7 @@
 </script>
 
 
-<nav class="links-container__dropdown-container dev-border">
+<nav class="links-container__dropdown-container">
   <h4 class="links-container__dropdown-header">{title}</h4>
   
   <div class="links-container__dropdown-menu">
@@ -50,5 +50,8 @@
     padding: 0.3rem 0.5rem;
     border: 1px solid black;
     text-align: center;
+  }
+  .dropdown-menu__dropdown-element:hover {
+    background-color: var(--light-blue);
   }
 </style>

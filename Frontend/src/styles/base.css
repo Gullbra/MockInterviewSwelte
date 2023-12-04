@@ -17,3 +17,8 @@ a {
 .dev-border {
   border: 1px solid black;
 }
+
+i, b {
+  font-family: inherit;
+  font-size: inherit;
+}

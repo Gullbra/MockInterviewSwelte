@@ -1,49 +1,34 @@
 <script lang="ts">
-  import type { IDataContainerQuestions } from '../../../../Backend/data/src/dataInTS'
+  import type { IDataQuestionTypes } from '../../lib/interfaces'
+  import WebCamComponent from '../components/WebCamComponent.svelte';
 
-  export let data
-  const questions: IDataContainerQuestions = { 
-    technical: [],
-    behavioural: [],
-    personal: [],
-    uncategorized: [],
-    ...data.resp
-  }
+  /*
 
-  let stream: MediaStream, videoRef: HTMLVideoElement;
+  "graphql": "^15.4.0"
+  "graphql-request": "^3.3.0"
+  */
+  
+  // export let data
+
+  // const questions: IDataQuestionTypes = { 
+  //   technical: [],
+  //   behavioural: [],
+  //   personal: [],
+  //   uncategorized: [],
+  //   ...data.resp
+  // }
+
 
   $: showSuggestedAnswer = false
   $: showAddAnswerForm = false
   $: newAnswer = ""
-
-  async function getStream() {
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: false
-      });
-      videoRef.srcObject = stream;
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  async function stopStream() {
-    stream.getTracks().forEach(track => track.stop());
-    videoRef.srcObject = null;
-  }
 </script>
+
 
 <div class="about-page">
   <h2 class="about-page__header">Webcam Test!</h2>
 
-  <video class={`mt-4 rounded-sm ${videoRef?.srcObject === null ? "--stream-closed" : "--stream-open"}`} autoplay={true} bind:this={videoRef}><track kind="captions"></video>
-
-  {#if videoRef?.srcObject === null}
-    <button class="start-stop-btn rounded-sm bg-slate-600 text-white" on:click={getStream}>Start Stream</button>
-  {:else}
-    <button class="start-stop-btn rounded-sm bg-red-600 text-white" on:click={stopStream}>Stop Stream</button>
-  {/if}
+  <WebCamComponent/>
 
   <section style="margin-top: 4rem; display: flex; flex-direction: column; align-items:center;">
     <h3>This is the the QnA section</h3>
@@ -68,6 +53,7 @@
   </section>
 </div>
 
+
 <style>
   .about-page {
     padding-top: 3rem;
@@ -76,19 +62,16 @@
   .about-page__header {
     margin-bottom: 2rem;
   }
+
+
   .start-stop-btn {
     margin-top: 2rem;
     padding: 0.2rem 0.5rem;
     display: block;
     cursor: pointer;
   }
-  .--stream-closed {
-    height: 0px;
-  }
-  .--stream-open {
-    width: 640px;
-    height: 480px;
-  }
+
+
   .text-area-input {
     border-radius: 0.3rem;
     padding: 0.5rem;

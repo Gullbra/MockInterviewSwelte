@@ -9,6 +9,7 @@
     { 
       menuTitle: "Site navigation",
       menuItems: [
+        { title: "Mock an Interview", path: "/mockAnInterview" },
         { title: "Preparation", path: "/preparation" },
         { title: "Webcam test", path: "/web-cam-test" },
         { title: "About", path: "/about" },
