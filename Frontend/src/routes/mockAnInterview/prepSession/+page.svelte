@@ -1,6 +1,7 @@
 <script lang="ts">
   import ResearchSection from './components/ResearchSection.svelte'
   import PrepareQuestionsSection from './components/PrepareQuestionsSection.svelte';
+  import OnlineInterview from './components/OnlineInterview.svelte';
   export let data
 
   interface IFetchedData {
@@ -9,18 +10,21 @@
       onlineInterview: string[],
       research: string[]
     },
-    generalTips: string[]
+    generalTips: string[],
   }
   const fetchedData = data as IFetchedData
 
   let progress = {
     research: {
-      done: false,
+      done: true, //false,
       data: Array.from({length: fetchedData.research.research.length}, () => "")
     },
     preparedQuestions: {
-      done: false,
+      done: true, //false,
       data: [] as string[]
+    },
+    onlineInterview: {
+      done: [false, false] as [boolean, boolean]
     }
   }
 </script>
@@ -31,6 +35,9 @@
 
   <ResearchSection bind:twoWayBindParent={progress.research} twoWayBindChild={{...progress.research}} fetchedData={fetchedData}/>
   <PrepareQuestionsSection bind:twoWayBindParent={progress.preparedQuestions} twoWayBindChild={{...progress.preparedQuestions}}/>
+  <OnlineInterview bind:twoWayBindParent={progress.onlineInterview} twoWayBindChild={{...progress.onlineInterview}} fetchedData={fetchedData.research.onlineInterview}/>
+  <!-- <AppearenceChecklist /> -->
+  <!-- <GerneralTips /> -->
 
 </div>
 
