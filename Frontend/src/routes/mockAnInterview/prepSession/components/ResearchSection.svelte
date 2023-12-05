@@ -1,14 +1,7 @@
 <script lang="ts">
-  export let fetchedData: {
-    research: {
-      Appearence: string[],
-      onlineInterview: string[],
-      research: string[]
-    },
-    generalTips: string[]
-  }
+  export let fetchedData: string[]
   
-  type IState = { 
+  interface IState { 
     done: boolean, 
     data: string[] 
   }
@@ -18,23 +11,21 @@
   $: currentCheckpoint = 0
 
   const collapsed = {
-    reserch: {
-      coll: true,
-      subfields: Array.from({length: fetchedData.research.research.length}, () => true),
-      editing: {
-        isEditing: Array.from({length: fetchedData.research.research.length}, () => false),
-        value: Array.from({length: fetchedData.research.research.length}, () => "")
-      }
+    all: true,
+    subfields: Array.from({length: fetchedData.length}, () => true),
+    editing: {
+      isEditing: Array.from({length: fetchedData.length}, () => false),
+      value: Array.from({length: fetchedData.length}, () => "")
     }
   }
 </script>
 
 
-<section class="prep-research-section">
-  {#if (!twoWayBindChild.done && currentCheckpoint < fetchedData.research.research.length)}
-    <h3 style="margin-bottom: 2rem;">Research</h3>
+<section class="prep-session__section">
+  {#if (!twoWayBindChild.done && currentCheckpoint < fetchedData.length)}
+    <h3 class="prep-section__header">Research</h3>
 
-    <h4>{fetchedData.research.research[currentCheckpoint]}</h4>
+    <h4 class="research-question">{`Q: ${fetchedData[currentCheckpoint]}`}</h4>
 
     <textarea
       style="margin-top: 1rem;" placeholder="...write answer here" 
@@ -45,8 +36,8 @@
       class="save-btn" 
       on:click|preventDefault={() => {
         currentCheckpoint += 1
-        if (currentCheckpoint >= fetchedData.research.research.length) {
-          collapsed.reserch.editing.value = twoWayBindChild.data.slice()
+        if (currentCheckpoint >= fetchedData.length) {
+          collapsed.editing.value = twoWayBindChild.data.slice()
           twoWayBindChild.done = true
         }
 
@@ -55,38 +46,38 @@
     >Save</button>
 
   {:else}
-    <h3>
+    <h3 class="prep-section__header">
       <button class="--unstyled-btn"
-        on:click={() => collapsed.reserch.coll = !collapsed.reserch.coll}
-        >Research <span>{ collapsed.reserch.coll ? "+" : "-" }</span></button>
+        on:click={() => collapsed.all = !collapsed.all}
+        >Research <span class="--collapsed-icon">{ collapsed.all ? "+" : "-" }</span></button>
     </h3>
 
-    <div class={ !!collapsed.reserch.coll ? "--collapsed-element" : "" }>
+    <div class={ !!collapsed.all ? "--collapsed-element" : "" }>
 
-      {#each fetchedData.research.research as litItem, i ("list, research, " + litItem)}
-        <div class="prep-research-section" style="margin-top: 0.5rem;">
+      {#each fetchedData as litItem, i ("list, research, " + litItem)}
+        <div class="prep-session__section" style="margin-top: 0.5rem;">
           <h5><button class="--unstyled-btn"
-            on:click={() => collapsed.reserch.subfields[i] = !collapsed.reserch.subfields[i]}
-          >{litItem} <span>{ collapsed.reserch.subfields[i] ? "+" : "-"}</span></button></h5>
+            on:click={() => collapsed.subfields[i] = !collapsed.subfields[i]}
+          >{litItem} <span class="--collapsed-icon">{ collapsed.subfields[i] ? "+" : "-"}</span></button></h5>
 
           
-          <div class={ `flex-col-center ${!!collapsed.reserch.subfields[i] ? "--collapsed-element" : ""}`}>
-            {#if !collapsed.reserch.editing.isEditing[i]}
+          <div class={ `flex-col-center ${!!collapsed.subfields[i] ? "--collapsed-element" : ""}`}>
+            {#if !collapsed.editing.isEditing[i]}
               <p>{twoWayBindChild.data[i] || "not entered"}</p>
             {:else}
               <textarea
                 style="margin-top: 1rem;" placeholder="...write answer here" 
                 class="text-area-input" 
-                bind:value={collapsed.reserch.editing.value[i]}/>
+                bind:value={collapsed.editing.value[i]}/>
 
               <button on:click={() => {
-                twoWayBindChild.data[i] = collapsed.reserch.editing.value[i]
-                collapsed.reserch.editing.isEditing[i] = !collapsed.reserch.editing.isEditing[i]
+                twoWayBindChild.data[i] = collapsed.editing.value[i]
+                collapsed.editing.isEditing[i] = !collapsed.editing.isEditing[i]
                 stateChange()
               }}>replace</button>
             {/if}
-            <button on:click={() => collapsed.reserch.editing.isEditing[i] = !collapsed.reserch.editing.isEditing[i] }>
-              {!collapsed.reserch.editing.isEditing[i] ? "change": "cancel"}
+            <button on:click={() => collapsed.editing.isEditing[i] = !collapsed.editing.isEditing[i] }>
+              {!collapsed.editing.isEditing[i] ? "change": "cancel"}
             </button>
           </div>
 
@@ -99,19 +90,6 @@
 
 
 <style>
-  .prep-session-container {
-    padding-top: 3rem;
-
-    display: flex; 
-    flex-direction: column; align-items: center;
-  }
-
-  .prep-research-section {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column; align-items: center;
-  }
-
   .research-toggle-btn {
     margin-top: 2rem;
   }

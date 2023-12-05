@@ -2,49 +2,67 @@
   import ResearchSection from './components/ResearchSection.svelte'
   import PrepareQuestionsSection from './components/PrepareQuestionsSection.svelte';
   import OnlineInterview from './components/OnlineInterview.svelte';
-  export let data
+  import AppearenceChecklist from './components/AppearenceChecklist.svelte';
+  import GeneralTipsList from './components/GeneralTipsList.svelte';
+  import './prep-session-classes.css'
 
-  interface IFetchedData {
+
+  export let data: {
     research: {
-      Appearence: string[],
+      Appearance: string[],
       onlineInterview: string[],
       research: string[]
     },
     generalTips: string[],
   }
-  const fetchedData = data as IFetchedData
+
 
   let progress = {
     research: {
-      done: true, //false,
-      data: Array.from({length: fetchedData.research.research.length}, () => "")
+      done: false,
+      data: Array.from({length: data.research.research.length}, () => "")
     },
     preparedQuestions: {
       done: true, //false,
       data: [] as string[]
     },
     onlineInterview: {
-      done: [false, false] as [boolean, boolean]
+      done: [true, true] /*[false, false]*/ as [boolean, boolean]
+    },
+    appearance: {
+      done: true // false,
     }
   }
 </script>
 
 
 <div class="prep-session-container">
-  <h2>test: prep session</h2>
+  <h2>Interview Prep</h2>
 
-  <ResearchSection bind:twoWayBindParent={progress.research} twoWayBindChild={{...progress.research}} fetchedData={fetchedData}/>
-  <PrepareQuestionsSection bind:twoWayBindParent={progress.preparedQuestions} twoWayBindChild={{...progress.preparedQuestions}}/>
-  <OnlineInterview bind:twoWayBindParent={progress.onlineInterview} twoWayBindChild={{...progress.onlineInterview}} fetchedData={fetchedData.research.onlineInterview}/>
-  <!-- <AppearenceChecklist /> -->
-  <!-- <GerneralTips /> -->
+  <ResearchSection 
+    bind:twoWayBindParent={progress.research} twoWayBindChild={{...progress.research}} 
+    fetchedData={data.research.research}/>
 
+  <PrepareQuestionsSection 
+    bind:twoWayBindParent={progress.preparedQuestions} twoWayBindChild={{...progress.preparedQuestions}}/>
+
+  <OnlineInterview 
+    bind:twoWayBindParent={progress.onlineInterview} twoWayBindChild={{...progress.onlineInterview}} 
+    fetchedData={data.research.onlineInterview}/>
+
+  <AppearenceChecklist 
+    bind:twoWayBindParent={progress.appearance} twoWayBindChild={{...progress.appearance}} 
+    fetchedData={data.research.Appearance}/> 
+
+  <GeneralTipsList 
+    fetchedData={data.generalTips}/> 
 </div>
 
 
 <style>
   .prep-session-container {
     padding-top: 3rem;
+    margin-left: 2rem; margin-right: 2rem;
 
     display: flex; 
     flex-direction: column; align-items: center;

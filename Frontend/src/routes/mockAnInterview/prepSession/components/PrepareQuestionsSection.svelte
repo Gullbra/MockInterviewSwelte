@@ -1,5 +1,5 @@
 <script lang="ts">
-  type IState = { 
+  interface IState { 
     done: boolean, 
     data: string[] 
   }
@@ -8,14 +8,13 @@
 
   let workingQuestion = ""
 
-  let collapsed = {
-    coll: true
-  }
+  let collapsed = true
 </script>
 
-<section class="prepare-questions-section flex-col-center">
+
+<section class="prep-session__section">
   {#if (!twoWayBindChild.done)}
-    <h3>Prepare Questions to Ask</h3>
+    <h3 class="prep-section__header">Prepare Questions to Ask</h3>
     <p style="margin-top: 1rem;"><i>Prepare a couple of questions to ask: It's a good way of showing both you interest and your understanding.</i></p>
 
     <div class="">
@@ -46,14 +45,14 @@
       }}
     >Save</button>
 
-    <button on:click={() => {twoWayBindChild.done = true; collapsed.coll = true}}>{twoWayBindChild.data.length === 0 ? "Skip" : "Done"}</button>
+    <button on:click={() => {twoWayBindChild.done = true; collapsed = true}}>{twoWayBindChild.data.length === 0 ? "Skip" : "Done"}</button>
   {:else}
-    <h3>
+    <h3 class="prep-section__header">
       <button class="--unstyled-btn"
-        on:click={() => collapsed.coll = !collapsed.coll}
-      >Prepare Questions to Ask <span>{ collapsed.coll ? "+" : "-" }</span></button>
+        on:click={() => collapsed = !collapsed}
+      >Prepare Questions to Ask <span class="--collapsed-icon">{ collapsed ? "+" : "-" }</span></button>
     </h3>
-    <div class={`${ !!collapsed.coll ? "--collapsed-element" : ""}`}>
+    <div class={`${ !!collapsed ? "--collapsed-element" : ""}`}>
 
 
       {#each twoWayBindChild.data as sQuestion (sQuestion)}
@@ -68,7 +67,4 @@
 </section>
 
 <style>
-  .prepare-questions-section{
-    margin-top: 2rem;
-  }
 </style>

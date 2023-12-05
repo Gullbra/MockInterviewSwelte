@@ -14,9 +14,9 @@
 </script>
 
 
-<section class="online-interview-tips-container">
+<section class="prep-session__section">
   {#if (!twoWayBindChild.done[0] && !twoWayBindChild.done[1])}
-    <h3 style="margin-bottom: 2rem;">Online Interview Checklist</h3>
+    <h3 class="prep-section__header" style="margin-bottom: 2rem;">Online Interview Checklist</h3>
     <p>Will you have an online interview?</p>
 
     <div 
@@ -47,7 +47,7 @@
       Proceed
     </button>
   {:else if (!twoWayBindChild.done[1])}
-    <h3 style="margin-bottom: 2rem;">Online Interview Checklist</h3>
+    <h3 class="prep-section__header" style="margin-bottom: 2rem;">Online Interview Checklist</h3>
     <div style="display:flex; flex-direction:column;">
       {#each fetchedData as tip, i (tip)}
         <label for={tip}>
@@ -61,10 +61,10 @@
       >proceed</button>
     </div>
   {:else}
-    <h3>
+    <h3 class="prep-section__header">
       <button class="--unstyled-btn"
         on:click={() => collapsed = !collapsed}
-      >Online Interview Checklist <span>{ collapsed ? "+" : "-" }</span></button>
+      >Online Interview Checklist <span class="--collapsed-icon">{ collapsed ? "+" : "-" }</span></button>
     </h3>
 
     <div class={`${ !!collapsed ? "--collapsed-element" : ""}`}>
@@ -78,10 +78,4 @@
 
 
 <style>
-  .online-interview-tips-container {
-    padding-top: 3rem;
-
-    display: flex; 
-    flex-direction: column; align-items: center;
-  }
 </style>
