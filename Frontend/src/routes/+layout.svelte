@@ -3,6 +3,7 @@
   import '../styles/colors.css'
   import '../styles/fonts.css'
   import '../styles/modular-classes.css'
+  import '../styles/responisvness.css'
 
   import DropdownMenu from './components/DropdownMenu.svelte'
 

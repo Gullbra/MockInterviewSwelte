@@ -1,6 +1,6 @@
 .prep-session__section {
-  margin-top: 2rem;
-  padding-bottom: 0.5rem;
+  margin-top: 1.3rem;
+  padding-bottom: 0.8rem;
 
   width: 100%;
   
@@ -18,7 +18,16 @@
   padding-left: 0.5rem;
 }
 
-.--unstyled-btn:focus {
-  border-radius: 0.2rem;
-  outline: 2px solid rgba(0, 0, 0, 0.425);
+.text-area-input {
+  border-radius: 0.3rem;
+  padding: 0.5rem;
+  /* margin-top: 3rem; */
+  text-wrap: wrap;
+  width: 100%; min-height: 6rem;
+  resize: vertical;
+}
+
+.save-btn {
+  padding: 0.3rem 0.4rem;
+  /* margin-top: 1rem; */
 }

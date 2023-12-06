@@ -25,25 +25,33 @@
   {#if (!twoWayBindChild.done && currentCheckpoint < fetchedData.length)}
     <h3 class="prep-section__header">Research</h3>
 
-    <h4 class="research-question">{`Q: ${fetchedData[currentCheckpoint]}`}</h4>
+    <div class="research-inner-container">
+      <p><i>"By failing to prepare you are preparing to fail"</i></p>
+      <p style="text-align: center;">Find out and write down the answers to the successive questions below.</p>
 
-    <textarea
-      style="margin-top: 1rem;" placeholder="...write answer here" 
-      class="text-area-input" 
-      bind:value={twoWayBindChild.data[currentCheckpoint]}/>
+      <h4 style="margin-top:1rem; display:flex; flex-direction:row; gap: 0.7rem; max-width:90%;">
+        <div style="display: flex; align-items:center;">{"Q:"}</div>
+        <div >{`${fetchedData[currentCheckpoint]}`}</div>
+      </h4>
 
-    <button
-      class="save-btn" 
-      on:click|preventDefault={() => {
-        currentCheckpoint += 1
-        if (currentCheckpoint >= fetchedData.length) {
-          collapsed.editing.value = twoWayBindChild.data.slice()
-          twoWayBindChild.done = true
-        }
-
-        stateChange()
-      }}
-    >Save</button>
+      <textarea
+        style="margin-top: 1rem;" placeholder="...write answer here" 
+        class="text-area-input" 
+        bind:value={twoWayBindChild.data[currentCheckpoint]}/>
+  
+      <button
+        class="save-btn" 
+        on:click|preventDefault={() => {
+          currentCheckpoint += 1
+          if (currentCheckpoint >= fetchedData.length) {
+            collapsed.editing.value = twoWayBindChild.data.slice()
+            twoWayBindChild.done = true
+          }
+  
+          stateChange()
+        }}
+      >Save</button>
+    </div>
 
   {:else}
     <h3 class="prep-section__header">
@@ -52,50 +60,59 @@
         >Research <span class="--collapsed-icon">{ collapsed.all ? "+" : "-" }</span></button>
     </h3>
 
-    <div class={ !!collapsed.all ? "--collapsed-element" : "" }>
+    {#if !collapsed.all}
+      <div style="margin-top: 1rem; margin-bottom:2rem; padding-left: 10%; padding-right:5%;">
 
-      {#each fetchedData as litItem, i ("list, research, " + litItem)}
-        <div class="prep-session__section" style="margin-top: 0.5rem;">
-          <h5><button class="--unstyled-btn"
-            on:click={() => collapsed.subfields[i] = !collapsed.subfields[i]}
-          >{litItem} <span class="--collapsed-icon">{ collapsed.subfields[i] ? "+" : "-"}</span></button></h5>
-
-          
-          <div class={ `flex-col-center ${!!collapsed.subfields[i] ? "--collapsed-element" : ""}`}>
-            {#if !collapsed.editing.isEditing[i]}
-              <p>{twoWayBindChild.data[i] || "not entered"}</p>
-            {:else}
-              <textarea
-                style="margin-top: 1rem;" placeholder="...write answer here" 
-                class="text-area-input" 
-                bind:value={collapsed.editing.value[i]}/>
-
-              <button on:click={() => {
-                twoWayBindChild.data[i] = collapsed.editing.value[i]
-                collapsed.editing.isEditing[i] = !collapsed.editing.isEditing[i]
-                stateChange()
-              }}>replace</button>
+        {#each fetchedData as litItem, i ("list, research, " + litItem)}
+          <div class="" style="margin-top: 0.5rem;">
+            <h5>
+              <button class="--unstyled-btn" style="display: flex; justify-content: flex-start;" on:click={() => collapsed.subfields[i] = !collapsed.subfields[i]}>
+                {litItem}
+                <span class="--collapsed-icon" style="align-self: center;">{ collapsed.subfields[i] ? "+" : "-"}</span>
+              </button>
+            </h5>
+  
+            {#if !collapsed.subfields[i]}
+              <div style="padding-top: 0.6rem; padding-bottom:0.8rem; padding-left:2rem; padding-right:0.5rem; width:fit-content;">
+                {#if !collapsed.editing.isEditing[i]}
+                  <p>{twoWayBindChild.data[i] || "Not Entered"}</p>
+                {:else}
+                  <textarea
+                    style="margin-top: 1rem;" placeholder="...write answer here" 
+                    class="text-area-input" 
+                    bind:value={collapsed.editing.value[i]}/>
+    
+                  <button class="save-btn" on:click={() => {
+                    twoWayBindChild.data[i] = collapsed.editing.value[i]
+                    collapsed.editing.isEditing[i] = !collapsed.editing.isEditing[i]
+                    stateChange()
+                  }}>replace</button>
+                {/if}
+                <button class="save-btn" style="margin-top: 0.5rem;" on:click={() => collapsed.editing.isEditing[i] = !collapsed.editing.isEditing[i] }>
+                  {!collapsed.editing.isEditing[i] ? "change": "cancel"}
+                </button>
+              </div>
             {/if}
-            <button on:click={() => collapsed.editing.isEditing[i] = !collapsed.editing.isEditing[i] }>
-              {!collapsed.editing.isEditing[i] ? "change": "cancel"}
-            </button>
+
           </div>
+        {/each}
 
-        </div>
-      {/each}
-
-    </div>
+      </div>
+    {/if}
+ 
   {/if}
 </section>
 
 
 <style>
-  .research-toggle-btn {
-    margin-top: 2rem;
-  }
+  .research-inner-container {
+    display:flex; flex-direction:column; 
+    align-items: center; justify-content: space-around;
+    
+    margin-top: 1rem; margin-bottom: 2rem;
+    padding-top: 2.5%; padding-bottom: 10%;
+    padding-left: 2.5%; padding-right: 2.5%;
 
-  .save-btn {
-    padding: 0.3rem 0.4rem;
-    margin-top: 1rem;
+    width: var(--content-width); height: var(--content-height);
   }
 </style>

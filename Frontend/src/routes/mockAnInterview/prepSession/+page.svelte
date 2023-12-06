@@ -19,11 +19,11 @@
 
   let progress = {
     research: {
-      done: false,
+      done: true, //false,
       data: Array.from({length: data.research.research.length}, () => "")
     },
     preparedQuestions: {
-      done: true, //false,
+      done: false,
       data: [] as string[]
     },
     onlineInterview: {
