@@ -4,6 +4,7 @@
   import OnlineInterview from './components/OnlineInterview.svelte';
   import AppearenceChecklist from './components/AppearenceChecklist.svelte';
   import GeneralTipsList from './components/GeneralTipsList.svelte';
+  import ShowNotes from './components/ShowNotes.svelte';
   import './prep-session-classes.css'
 
 
@@ -19,15 +20,15 @@
 
   let progress = {
     research: {
-      done: true, //false,
+      done: false,
       data: Array.from({length: data.research.research.length}, () => "")
     },
     preparedQuestions: {
-      done: true, //false,
+      done: false,
       data: [] as string[]
     },
     onlineInterview: {
-      done: [true, true] /*[false, false]*/ as [boolean, boolean]
+      done: [false, false] as [boolean, boolean]
     },
     appearance: {
       done: false,
@@ -57,7 +58,14 @@
   <GeneralTipsList 
     fetchedData={data.generalTips}/>
 
-  
+  <ShowNotes
+    progress={progress}
+    fetchedData={{ 
+      research: data.research.research, 
+      onlineInterview: data.research.onlineInterview,
+      appearance: data.research.Appearance,
+      generalTips: data.generalTips
+    }} />
 </div>
 
 

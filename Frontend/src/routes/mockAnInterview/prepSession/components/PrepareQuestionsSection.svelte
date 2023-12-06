@@ -19,25 +19,30 @@
     <div class="prep-section__inner-container--working">
       <p style="margin-top: 1rem;"><i>Prepare a couple of questions to ask: It's a good way of showing both you interest and your understanding.</i></p>
 
-      <div style="display: flex; flex-direction:column; gap: 0.4rem;">
-        {#each twoWayBindChild.data as sQuestion, i (sQuestion)}
-          <div style="display: flex; flex-direction:row; justify-content:space-between; gap:0.7rem;">
-            <p style="color: rgb(95, 94, 94);">{sQuestion}</p>
+      {#if twoWayBindChild.data.length > 0}  
+        <div style="display: flex; flex-direction:column; gap: 0.4rem;">
 
-            <button on:click={() => {
-              twoWayBindChild.data = twoWayBindChild.data
-                .slice(0,i)
-                .concat(twoWayBindChild.data.slice(i+1))
-                .map((el, index) => (index + 1) + '.' + el.split('.').slice(1).join('.'))
-    
-              stateChange()
-            }}>delete</button>
-          </div>
-        {/each}
-      </div>
+          {#each twoWayBindChild.data as sQuestion, i (sQuestion)}
+            <div style="display: flex; flex-direction:row; justify-content:space-between; gap:0.7rem;">
+              <p style="color: rgb(95, 94, 94);">{sQuestion}</p>
+
+              <button
+                on:click={() => {
+                  twoWayBindChild.data = twoWayBindChild.data
+                    .slice(0,i)
+                    .concat(twoWayBindChild.data.slice(i+1))
+                    .map((el, index) => (index + 1) + '.' + el.split('.').slice(1).join('.'))
+        
+                  stateChange()
+                }
+              }>delete</button>
+            </div>
+          {/each}
+        </div>
+      {/if}
   
       <textarea
-        style="margin-top: 1rem;" 
+        style="" 
         placeholder="...write your question here" 
         class="text-area-input" 
         bind:value={workingQuestion}
