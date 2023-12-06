@@ -12,16 +12,20 @@
     >General tips <span class="--collapsed-icon">{ collapsed ? "+" : "-" }</span></button>
   </h3>
 
-  <div 
-    class={`${ !!collapsed ? "--collapsed-element" : ""}`}
-    style="display:flex; flex-direction:column; align-items: center;"
-  >
-    {#each fetchedData as tip (tip)}
-      <p>{tip}</p>
-    {/each}
-  </div>
+  {#if !collapsed}
+    <div class="prep-section__inner-container--working">
+      <div class="inner__list">
+        {#each fetchedData as tip (tip)}
+          <p>{tip}</p>
+        {/each}
+      </div>
+    </div>
+  {/if}
 </section>
 
 
 <style>
+  .inner__list {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
 </style>

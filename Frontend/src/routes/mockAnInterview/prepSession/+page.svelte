@@ -23,14 +23,14 @@
       data: Array.from({length: data.research.research.length}, () => "")
     },
     preparedQuestions: {
-      done: false,
+      done: true, //false,
       data: [] as string[]
     },
     onlineInterview: {
       done: [true, true] /*[false, false]*/ as [boolean, boolean]
     },
     appearance: {
-      done: true // false,
+      done: false,
     }
   }
 </script>
@@ -55,7 +55,9 @@
     fetchedData={data.research.Appearance}/> 
 
   <GeneralTipsList 
-    fetchedData={data.generalTips}/> 
+    fetchedData={data.generalTips}/>
+
+  
 </div>
 
 

@@ -25,7 +25,7 @@
   {#if (!twoWayBindChild.done && currentCheckpoint < fetchedData.length)}
     <h3 class="prep-section__header">Research</h3>
 
-    <div class="research-inner-container">
+    <div class="prep-section__inner-container--working">
       <p><i>"By failing to prepare you are preparing to fail"</i></p>
       <p style="text-align: center;">Find out and write down the answers to the successive questions below.</p>
 
@@ -61,19 +61,21 @@
     </h3>
 
     {#if !collapsed.all}
-      <div style="margin-top: 1rem; margin-bottom:2rem; padding-left: 10%; padding-right:5%;">
+      <div class="prep-section__inner-container--done" style="padding-left: 10%; padding-right:5%;">
 
         {#each fetchedData as litItem, i ("list, research, " + litItem)}
           <div class="" style="margin-top: 0.5rem;">
             <h5>
-              <button class="--unstyled-btn" style="display: flex; justify-content: flex-start;" on:click={() => collapsed.subfields[i] = !collapsed.subfields[i]}>
+              <button class="--unstyled-btn" style="text-align:start;" on:click={() => collapsed.subfields[i] = !collapsed.subfields[i]}>
                 {litItem}
                 <span class="--collapsed-icon" style="align-self: center;">{ collapsed.subfields[i] ? "+" : "-"}</span>
               </button>
             </h5>
   
             {#if !collapsed.subfields[i]}
-              <div style="padding-top: 0.6rem; padding-bottom:0.8rem; padding-left:2rem; padding-right:0.5rem; width:fit-content;">
+              <div 
+                style="padding-top: 0.8rem; padding-bottom:0.8rem; padding-left:2rem; padding-right:0.5rem; width:fit-content; display: flex; flex-direction: row; align-items: center; gap:1rem;"
+              >
                 {#if !collapsed.editing.isEditing[i]}
                   <p>{twoWayBindChild.data[i] || "Not Entered"}</p>
                 {:else}
@@ -88,7 +90,7 @@
                     stateChange()
                   }}>replace</button>
                 {/if}
-                <button class="save-btn" style="margin-top: 0.5rem;" on:click={() => collapsed.editing.isEditing[i] = !collapsed.editing.isEditing[i] }>
+                <button class="save-btn" on:click={() => collapsed.editing.isEditing[i] = !collapsed.editing.isEditing[i] }>
                   {!collapsed.editing.isEditing[i] ? "change": "cancel"}
                 </button>
               </div>
@@ -105,14 +107,4 @@
 
 
 <style>
-  .research-inner-container {
-    display:flex; flex-direction:column; 
-    align-items: center; justify-content: space-around;
-    
-    margin-top: 1rem; margin-bottom: 2rem;
-    padding-top: 2.5%; padding-bottom: 10%;
-    padding-left: 2.5%; padding-right: 2.5%;
-
-    width: var(--content-width); height: var(--content-height);
-  }
 </style>

@@ -4,10 +4,15 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Zilla Slab', serif;
 }
 
-p, button {
+p, button, label {
   font-family: 'Roboto', sans-serif;
 }
 
 a {
   font: inherit
+}
+
+i, b, span {
+  font-family: inherit;
+  font-size: inherit;
 }

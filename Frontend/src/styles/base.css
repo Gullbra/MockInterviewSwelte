@@ -18,11 +18,6 @@ a {
   border: 1px solid black;
 }
 
-i, b {
-  font-family: inherit;
-  font-size: inherit;
-}
-
 button {
   cursor: pointer;
 }

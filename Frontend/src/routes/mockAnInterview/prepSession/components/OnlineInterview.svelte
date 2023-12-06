@@ -16,48 +16,63 @@
 
 <section class="prep-session__section">
   {#if (!twoWayBindChild.done[0] && !twoWayBindChild.done[1])}
-    <h3 class="prep-section__header" style="margin-bottom: 2rem;">Online Interview Checklist</h3>
-    <p>Will you have an online interview?</p>
+    <h3 class="prep-section__header">Online Interview Checklist</h3>
 
-    <div 
-      role="radiogroup"
-      style="display:flex;flex-direction:column;" 
-    >
-      <label for="yay">
-        <input name="yay-or-nay" type="radio" id="yay" value="true" bind:group={isHaving}>
-        Yes
-      </label>
-      
-      <label for="nay">
-        <input name="yay-or-nay" type="radio" id="nay" value="false" bind:group={isHaving}>
-        No
-      </label>
+    <div class="prep-section__inner-container--working" style="justify-content: center;">
+      <p>Will you be having an online interview?</p>
+
+      <div 
+        role="radiogroup"
+        style="display:flex;flex-direction:row; gap:1.5rem;" 
+      >
+        <label for="yay">
+          <input name="yay-or-nay" type="radio" id="yay" value="true" bind:group={isHaving}>
+          <span style="padding-left: 0.4rem;">Yes</span>
+        </label>
+        
+        <label for="nay">
+          <input name="yay-or-nay" type="radio" id="nay" value="false" bind:group={isHaving}>
+          <span style="padding-left: 0.4rem;">No</span>
+        </label>
+      </div>
+  
+      <button
+        class="save-btn"
+        on:click={() => {
+          if(isHaving === "true") {
+            twoWayBindChild.done[0] = true
+          } else {
+            twoWayBindChild.done[1] = true
+          }
+          setState()
+        }}
+      >
+        Proceed
+      </button>
     </div>
 
-    <button 
-      on:click={() => {
-        if(isHaving === "true") {
-          twoWayBindChild.done[0] = true
-        } else {
-          twoWayBindChild.done[1] = true
-        }
-        setState()
-      }}
-    >
-      Proceed
-    </button>
   {:else if (!twoWayBindChild.done[1])}
     <h3 class="prep-section__header" style="margin-bottom: 2rem;">Online Interview Checklist</h3>
-    <div style="display:flex; flex-direction:column;">
-      {#each fetchedData as tip, i (tip)}
-        <label for={tip}>
-          <input type="checkbox" name={tip} id={tip} bind:checked={checkedArr[i]}>
-          {tip}
-        </label>
-      {/each}
 
-      <button disabled={!allChecked} style="margin-top: 1rem;"
-        on:click={() => {twoWayBindChild.done[1] = true; collapsed = true; setState()}}
+    <div class="prep-section__inner-container--working" style="justify-content: center;">
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        {#each fetchedData as tip, i (tip)}
+          <label for={tip}>
+            <input type="checkbox" name={tip} id={tip} bind:checked={checkedArr[i]}>
+            <span style="margin-left: 0.8rem;">{tip}</span>
+          </label>
+        {/each}
+      </div>
+
+      <button
+        class="save-btn"
+        style="margin-top: 1rem;"
+        disabled={!allChecked}
+        on:click={() => {
+          twoWayBindChild.done[1] = true; 
+          collapsed = true; 
+          setState()
+        }}
       >proceed</button>
     </div>
   {:else}
@@ -67,11 +82,19 @@
       >Online Interview Checklist <span class="--collapsed-icon">{ collapsed ? "+" : "-" }</span></button>
     </h3>
 
-    <div class={`${ !!collapsed ? "--collapsed-element" : ""}`}>
-      <button on:click={() => twoWayBindChild.done = [true, false]}>
-        {twoWayBindChild.done[0] ? "check again?" : "cheklist"}
-      </button>
-    </div>
+    {#if !collapsed}      
+      <div class="prep-section__inner-container--done">
+        <button 
+          class="save-btn" style="margin-top: 1rem;"
+          on:click={() => {
+            twoWayBindChild.done = [true, false]
+            setState()
+          }
+        }>
+          {twoWayBindChild.done[0] ? "check again?" : "cheklist"}
+        </button>
+      </div>
+    {/if}
   {/if}
 
 </section>
