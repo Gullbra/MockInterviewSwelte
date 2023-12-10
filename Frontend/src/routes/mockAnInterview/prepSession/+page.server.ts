@@ -1,6 +1,6 @@
 export const load = async ({ fetch }) => {
   return {
-    research: await fetch('../mock/data.prepAndResearch.json')
+    ...await fetch('../mock/data.prepAndResearch.json')
       .then(response => response.json())
       .then(json => json)
       .catch(err => {error: err}),

@@ -10,10 +10,16 @@
 
   export let data: {
     research: {
-      Appearance: string[],
-      onlineInterview: string[],
-      research: string[]
-    },
+      question: string,
+      desc: string
+    }[],
+
+    questionsToAsk: string[],
+
+    onlineInterview: string[],
+
+    appearance: string[],
+
     generalTips: string[],
   }
 
@@ -21,7 +27,7 @@
   let progress = {
     research: {
       done: false,
-      data: Array.from({length: data.research.research.length}, () => "")
+      data: Array.from({length: data.research.length}, () => "")
     },
     preparedQuestions: {
       done: false,
@@ -42,30 +48,26 @@
 
   <ResearchSection 
     bind:twoWayBindParent={progress.research} twoWayBindChild={{...progress.research}} 
-    fetchedData={data.research.research}/>
+    fetchedData={data.research} />
 
   <PrepareQuestionsSection 
-    bind:twoWayBindParent={progress.preparedQuestions} twoWayBindChild={{...progress.preparedQuestions}}/>
+    bind:twoWayBindParent={progress.preparedQuestions} twoWayBindChild={{...progress.preparedQuestions}} 
+    fetchedData={data.questionsToAsk} />
 
   <OnlineInterview 
     bind:twoWayBindParent={progress.onlineInterview} twoWayBindChild={{...progress.onlineInterview}} 
-    fetchedData={data.research.onlineInterview}/>
+    fetchedData={data.onlineInterview} />
 
   <AppearenceChecklist 
     bind:twoWayBindParent={progress.appearance} twoWayBindChild={{...progress.appearance}} 
-    fetchedData={data.research.Appearance}/> 
+    fetchedData={data.appearance} /> 
 
   <GeneralTipsList 
-    fetchedData={data.generalTips}/>
+    fetchedData={data.generalTips} />
 
   <ShowNotes
     progress={progress}
-    fetchedData={{ 
-      research: data.research.research, 
-      onlineInterview: data.research.onlineInterview,
-      appearance: data.research.Appearance,
-      generalTips: data.generalTips
-    }} />
+    fetchedData={data} />
 </div>
 
 

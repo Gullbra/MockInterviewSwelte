@@ -1,4 +1,6 @@
 <script lang="ts">
+  export let fetchedData: string[]
+
   interface IState { 
     done: boolean, 
     data: string[] 
@@ -8,7 +10,10 @@
 
   let workingQuestion = ""
 
-  let collapsed = true
+  let collapsed = {
+    section: true,
+    tips: true
+  }
 </script>
 
 
@@ -47,6 +52,18 @@
         class="text-area-input" 
         bind:value={workingQuestion}
       />
+
+      <h4>
+        <button class="--unstyled-btn"
+          on:click={() => collapsed.tips = !collapsed.tips}
+        >Show tips <span class="--collapsed-icon">{ collapsed.tips ? "+" : "-" }</span></button>
+      </h4>
+
+      {#if !collapsed.tips}
+        {#each fetchedData as tip, i (tip + i)}          
+          <p>{tip}</p>
+        {/each}
+      {/if}
   
       <div>
         <button
@@ -61,7 +78,7 @@
         <button class="save-btn" 
           on:click={() => {
             twoWayBindChild.done = true; 
-            collapsed = true
+            collapsed.section = true
             stateChange()
           }}
         >{twoWayBindChild.data.length === 0 ? "Skip" : "Done"}</button>
@@ -71,11 +88,11 @@
   {:else}
     <h3 class="prep-section__header">
       <button class="--unstyled-btn"
-        on:click={() => collapsed = !collapsed}
-      >Prepare Questions to Ask <span class="--collapsed-icon">{ collapsed ? "+" : "-" }</span></button>
+        on:click={() => collapsed.section = !collapsed.section}
+      >Prepare Questions to Ask <span class="--collapsed-icon">{ collapsed.section ? "+" : "-" }</span></button>
     </h3>
 
-    {#if !collapsed}
+    {#if !collapsed.section}
       <div class="prep-section__inner-container--done" style="display: flex; flex-direction: column; gap: 0.3rem;">
         {#each twoWayBindChild.data as sQuestion (sQuestion)}
           <p style="color: rgb(95, 94, 94);">{sQuestion}</p>

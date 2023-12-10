@@ -10,10 +10,16 @@
       done: [boolean, boolean]
     }
   }, fetchedData: {
-    research: string[],
+    research: {
+      question: string,
+      desc: string
+    }[],
+
     onlineInterview: string[],
+
     appearance: string[],
-    generalTips: string[]
+
+    generalTips: string[],
   }
 
   $: text = (() => {
@@ -24,7 +30,7 @@
       if (savedAnswer === "") 
         return ""
 
-      return `\tQ: ${fetchedData.research[index]}\n\t\t-  ${savedAnswer}\n`
+      return `\tQ: ${fetchedData.research[index].question}\n\t\t-  ${savedAnswer}\n`
     }).join("")
 
     textWIP += "\nQuestions to Ask:"
@@ -57,4 +63,3 @@
     />
   </div>
 </section>
-

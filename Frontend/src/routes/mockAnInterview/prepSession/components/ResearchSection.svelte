@@ -1,5 +1,8 @@
 <script lang="ts">
-  export let fetchedData: string[]
+  export let fetchedData: {
+    question: string,
+    desc: string
+  }[]
   
   interface IState { 
     done: boolean, 
@@ -26,13 +29,22 @@
     <h3 class="prep-section__header">Research</h3>
 
     <div class="prep-section__inner-container--working">
-      <p><i>"By failing to prepare you are preparing to fail"</i></p>
-      <p style="text-align: center;">Find out and write down the answers to the successive questions below.</p>
+      <div>
+        <p style="text-align: center;"><i>"By failing to prepare you are preparing to fail"</i></p>
+        <p style="text-align: center; margin-top: 1.3rem;">Find out and write down the answers to the successive questions below.</p>
+      </div>
 
-      <h4 style="margin-top:1rem; display:flex; flex-direction:row; gap: 0.7rem; max-width:90%;">
-        <div style="display: flex; align-items:center;">{"Q:"}</div>
-        <div >{`${fetchedData[currentCheckpoint]}`}</div>
-      </h4>
+
+
+      <div style="display: flex; flex-direction:column; align-items:center; gap:1.3rem;">
+        <h4 style="margin-top:1rem; display:flex; flex-direction:row; gap: 0.7rem; max-width:90%; text-align: center;">
+          <div style="display: flex; align-items:center;">{"Q:"}</div>
+          <div >{`${fetchedData[currentCheckpoint].question}`}</div>
+        </h4>
+        <p style="text-align:center;">{`${fetchedData[currentCheckpoint].desc}`}</p>
+      </div>
+
+
 
       <textarea
         style="margin-top: 1rem;" placeholder="...write answer here" 
@@ -60,14 +72,16 @@
         >Research <span class="--collapsed-icon">{ collapsed.all ? "+" : "-" }</span></button>
     </h3>
 
+
     {#if !collapsed.all}
       <div class="prep-section__inner-container--done" style="padding-left: 10%; padding-right:5%;">
 
-        {#each fetchedData as litItem, i ("list, research, " + litItem)}
+        
+        {#each fetchedData as litItem, i ("list, research, " + litItem.question)}
           <div class="" style="margin-top: 0.5rem;">
             <h5>
               <button class="--unstyled-btn" style="text-align:start;" on:click={() => collapsed.subfields[i] = !collapsed.subfields[i]}>
-                {litItem}
+                {litItem.question}
                 <span class="--collapsed-icon" style="align-self: center;">{ collapsed.subfields[i] ? "+" : "-"}</span>
               </button>
             </h5>
@@ -99,9 +113,11 @@
           </div>
         {/each}
 
+
       </div>
     {/if}
  
+
   {/if}
 </section>
 
