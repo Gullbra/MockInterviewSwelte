@@ -1,6 +1,7 @@
 <script lang="ts">
   import ResearchSection from './components/ResearchSection.svelte'
   import PrepareQuestionsSection from './components/PrepareQuestionsSection.svelte';
+  import PrepareIntroductionSection from './components/PrepareIntroductionSection.svelte';
   import OnlineInterview from './components/OnlineInterview.svelte';
   import AppearenceChecklist from './components/AppearenceChecklist.svelte';
   import GeneralTipsList from './components/GeneralTipsList.svelte';
@@ -14,7 +15,20 @@
       desc: string
     }[],
 
-    questionsToAsk: string[],
+    questionsToAsk: {
+      question: string,
+      desc: string,
+      tips: string[]
+    },
+
+    prepareIntroduction: {
+      goalsWithIntroduction: string[],
+      keyPoints: {
+        point: string,
+        desc: string
+      }[],
+      examples: string[]
+    },
 
     onlineInterview: string[],
 
@@ -32,6 +46,10 @@
     preparedQuestions: {
       done: false,
       data: [] as string[]
+    },
+    preparedIntroduction: {
+      done: false,
+      data: ""
     },
     onlineInterview: {
       done: [false, false] as [boolean, boolean]
@@ -53,6 +71,12 @@
   <PrepareQuestionsSection 
     bind:twoWayBindParent={progress.preparedQuestions} twoWayBindChild={{...progress.preparedQuestions}} 
     fetchedData={data.questionsToAsk} />
+
+  <PrepareIntroductionSection 
+    bind:twoWayBindParent={progress.preparedIntroduction} twoWayBindChild={{...progress.preparedIntroduction}} 
+    fetchedData={data.prepareIntroduction} /> 
+
+  <!-- TODO prepareAnswers -->>
 
   <OnlineInterview 
     bind:twoWayBindParent={progress.onlineInterview} twoWayBindChild={{...progress.onlineInterview}} 

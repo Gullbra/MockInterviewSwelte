@@ -14,7 +14,7 @@
   $: currentCheckpoint = 0
 
   const collapsed = {
-    all: true,
+    all: false,
     subfields: Array.from({length: fetchedData.length}, () => true),
     editing: {
       isEditing: Array.from({length: fetchedData.length}, () => false),
@@ -25,58 +25,53 @@
 
 
 <section class="prep-session__section">
-  {#if (!twoWayBindChild.done && currentCheckpoint < fetchedData.length)}
-    <h3 class="prep-section__header">Research</h3>
 
-    <div class="prep-section__inner-container--working">
-      <div>
-        <p style="text-align: center;"><i>"By failing to prepare you are preparing to fail"</i></p>
-        <p style="text-align: center; margin-top: 1.3rem;">Find out and write down the answers to the successive questions below.</p>
+  <h3 class="prep-section__header">
+    <button class="--unstyled-btn"
+      on:click={() => collapsed.all = !collapsed.all}
+      >Research <span class="--collapsed-icon">{ collapsed.all ? "+" : "-" }</span></button>
+  </h3>
+
+  {#if !collapsed.all}
+    {#if (!twoWayBindChild.done && currentCheckpoint < fetchedData.length)}
+
+      <div class="prep-section__inner-container--working">
+        <div>
+          <p style="text-align: center;"><i>"By failing to prepare you are preparing to fail"</i></p>
+          <p style="text-align: center; margin-top: 1.3rem;">Find out and write down the answers to the successive questions below.</p>
+        </div>
+
+        <div style="display: flex; flex-direction:column; align-items:center; gap:1.3rem;">
+          <h4 style="margin-top:1rem; display:flex; flex-direction:row; gap: 0.7rem; max-width:90%; text-align: center;">
+            <div style="display: flex; align-items:center;">{"Q:"}</div>
+            <div >{`${fetchedData[currentCheckpoint].question}`}</div>
+          </h4>
+          <p style="text-align:center;">{`${fetchedData[currentCheckpoint].desc}`}</p>
+        </div>
+
+        <textarea
+          style="margin-top: 1rem;" placeholder="...write answer here" 
+          class="text-area-input" 
+          bind:value={twoWayBindChild.data[currentCheckpoint]}/>
+    
+        <button
+          class="save-btn" 
+          on:click|preventDefault={() => {
+            currentCheckpoint += 1
+            if (currentCheckpoint >= fetchedData.length) {
+              collapsed.editing.value = twoWayBindChild.data.slice()
+              twoWayBindChild.done = true
+            }
+    
+            stateChange()
+          }}
+        >Save</button>
       </div>
 
+    {:else}
 
-
-      <div style="display: flex; flex-direction:column; align-items:center; gap:1.3rem;">
-        <h4 style="margin-top:1rem; display:flex; flex-direction:row; gap: 0.7rem; max-width:90%; text-align: center;">
-          <div style="display: flex; align-items:center;">{"Q:"}</div>
-          <div >{`${fetchedData[currentCheckpoint].question}`}</div>
-        </h4>
-        <p style="text-align:center;">{`${fetchedData[currentCheckpoint].desc}`}</p>
-      </div>
-
-
-
-      <textarea
-        style="margin-top: 1rem;" placeholder="...write answer here" 
-        class="text-area-input" 
-        bind:value={twoWayBindChild.data[currentCheckpoint]}/>
-  
-      <button
-        class="save-btn" 
-        on:click|preventDefault={() => {
-          currentCheckpoint += 1
-          if (currentCheckpoint >= fetchedData.length) {
-            collapsed.editing.value = twoWayBindChild.data.slice()
-            twoWayBindChild.done = true
-          }
-  
-          stateChange()
-        }}
-      >Save</button>
-    </div>
-
-  {:else}
-    <h3 class="prep-section__header">
-      <button class="--unstyled-btn"
-        on:click={() => collapsed.all = !collapsed.all}
-        >Research <span class="--collapsed-icon">{ collapsed.all ? "+" : "-" }</span></button>
-    </h3>
-
-
-    {#if !collapsed.all}
       <div class="prep-section__inner-container--done" style="padding-left: 10%; padding-right:5%;">
-
-        
+ 
         {#each fetchedData as litItem, i ("list, research, " + litItem.question)}
           <div class="" style="margin-top: 0.5rem;">
             <h5>
@@ -113,11 +108,9 @@
           </div>
         {/each}
 
-
       </div>
-    {/if}
- 
 
+    {/if}
   {/if}
 </section>
 
